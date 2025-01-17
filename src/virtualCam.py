@@ -59,7 +59,9 @@ with pyvirtualcam.Camera(width=640, height=480, fps=40, fmt=PixelFormat.BGR) as 
 
         # Apply the mask to the frame
         person = cv2.bitwise_and(frame, frame, mask=mask)
+        
+        person_resized = cv2.resize(person, (cam.width, cam.height))
 
         # Send the frame to the virtual camera
-        cam.send(person)
+        cam.send(person_resized)
         cam.sleep_until_next_frame()

@@ -2,13 +2,25 @@ import cv2
 import numpy as np
 import pyvirtualcam
 from pyvirtualcam import PixelFormat
-from pycoral.utils.edgetpu import make_interpreter
+from tflite_runtime.interpreter import Interpreter, load_delegate
 from pycoral.adapters import common, segment
 
-# Initialize the interpreter
-interpreter = make_interpreter('../models/deeplabv3_mnv2_pascal_quant_edgetpu.tflite')
-interpreter.allocate_tensors()
-input_size = common.input_size(interpreter)
+# Paths to the model and tpulib
+MODEL_PATH = '../models/deeplabv3_mnv2_pascal_quant_edgetpu.tflite'
+EDGETPU_SHARED_LIB = 'tpulib/libedgetpu.1.dylib'  # Path to the Edge TPU library
+
+# Load the Edge TPU model
+try:
+    interpreter = Interpreter(
+        model_path=MODEL_PATH,
+        experimental_delegates=[load_delegate(EDGETPU_SHARED_LIB)]
+    )
+    interpreter.allocate_tensors()
+    input_size = common.input_size(interpreter)
+    print(f"Model loaded successfully with input size: {input_size}")
+except Exception as e:
+    print(f"Error loading model or delegate: {e}")
+    exit()
 
 # Open the webcam
 cap = cv2.VideoCapture(0)

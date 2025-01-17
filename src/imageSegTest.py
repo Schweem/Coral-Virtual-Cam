@@ -1,20 +1,29 @@
 import cv2
 import numpy as np
-from pycoral.utils.edgetpu import make_interpreter
+from tflite_runtime.interpreter import Interpreter, load_delegate
 from pycoral.adapters import common, segment
 
 # Paths to the model and labels
 MODEL_PATH = '../models/deeplabv3_mnv2_pascal_quant_edgetpu.tflite'
+EDGETPU_SHARED_LIB = 'tpulib/libedgetpu.1.dylib'  # Path to the Edge TPU library
 LABELS = [
     'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
     'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
     'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor'
 ]
 
-# Initialize the interpreter
-interpreter = make_interpreter(MODEL_PATH)
-interpreter.allocate_tensors()
-input_size = common.input_size(interpreter)
+# Initialize the interpreter with the Edge TPU delegate
+try:
+    interpreter = Interpreter(
+        model_path=MODEL_PATH,
+        experimental_delegates=[load_delegate(EDGETPU_SHARED_LIB)]
+    )
+    interpreter.allocate_tensors()
+    input_size = common.input_size(interpreter)
+    print(f"Model loaded successfully with input size: {input_size}")
+except Exception as e:
+    print(f"Error loading model or delegate: {e}")
+    exit()
 
 # Function to create a colormap for visualizing segmentation results
 def create_pascal_label_colormap():

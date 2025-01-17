@@ -1,16 +1,25 @@
 import cv2
 import numpy as np
-from pycoral.utils.edgetpu import make_interpreter
+from tflite_runtime.interpreter import Interpreter, load_delegate
 from pycoral.adapters import common, segment
 
 # Paths to the model and background image
 MODEL_PATH = '../models/deeplabv3_mnv2_pascal_quant_edgetpu.tflite'
 BACKGROUND_IMAGE_PATH = '../models/background.jpg'
+EDGETPU_SHARED_LIB = 'tpulib/libedgetpu.1.dylib'  # Path to the Edge TPU library
 
 # Load the Edge TPU model
-interpreter = make_interpreter(MODEL_PATH)
-interpreter.allocate_tensors()
-input_size = common.input_size(interpreter)
+try:
+    interpreter = Interpreter(
+        model_path=MODEL_PATH,
+        experimental_delegates=[load_delegate(EDGETPU_SHARED_LIB)]
+    )
+    interpreter.allocate_tensors()
+    input_size = common.input_size(interpreter)
+    print(f"Model loaded successfully with input size: {input_size}")
+except Exception as e:
+    print(f"Error loading model or delegate: {e}")
+    exit()
 
 # Load and resize the background image to match the input size
 background = cv2.imread(BACKGROUND_IMAGE_PATH)

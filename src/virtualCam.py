@@ -29,7 +29,7 @@ if not cap.isOpened():
     exit()
 
 # Initialize virtual camera
-with pyvirtualcam.Camera(width=640, height=480, fps=40, fmt=PixelFormat.BGR) as cam:
+with pyvirtualcam.Camera(width=640, height=480, fps=60, fmt=PixelFormat.BGR) as cam:
     print(f'Using virtual camera: {cam.device}')
 
     while True:

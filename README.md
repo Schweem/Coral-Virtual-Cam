@@ -16,7 +16,7 @@ tflite mac runtime
 - `pip install --upgrade --extra-index-url https://google-coral.github.io/py-repo/ tflite_runtime`
 
 `JAN 2025 SAD DISCLAIMER`
-gotta turn on a sketchy setting to use OBS virtual camera with python right now on mac. This could be limited to arm macs, haven't tested for intel. 
+gotta turn on a "sketchy" setting to use OBS virtual camera with python right now on mac. This could be limited to arm macs, haven't tested for intel. 
 
 - Downgrade to OBS 29 (maybe), I had to some people seem to suggest 30 was supposed to fix this 
 - Boot into recovery mode 

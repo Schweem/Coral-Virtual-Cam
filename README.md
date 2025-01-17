@@ -1,12 +1,15 @@
 # Coral Virtual Cam
- Experiments with the google coral edge TPU. Using image segmentation to create a greenscreen virtual cam for OBS
+Experiments with the google coral edge TPU. Using image segmentation to create a greenscreen virtual cam for OBS. 
+---
 
- *General Warning*
+ *General Warnings*
 `DO NOT` pip install pycoral, its not right.
 - `pip install git+https://github.com/google-coral/pycoral.git`
 - This will collect the latest python coral API rather than some abandoned library
 
 I had generally poor results trying to install the tflite runtime on mac with pip, seemed okay on windows. 
+
+`I also generally cannot guarantee wide compatability right now, I'd like to flesh that out with time. `
 
 ## Installation
 

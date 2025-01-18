@@ -27,3 +27,8 @@ Above all else this is just an exploration right now. With requirements installe
 - `Camera Test` -- Simple script for ensuring python can use your system camera
 - `Green Screen` -- Test script, uses Deeplabv3 to create a green screen effect on camera.
 - `Virutal Cam` -- Virutal camera adapater for use with software like OBS. Splits person out of background with Deeplabv3 semantic segmentation. The script will read out status as it spins up, once running you can open up OBS (or whatever you set it up for) and view it. 
+
+--- 
+
+ <img width="736" alt="image" src="https://github.com/user-attachments/assets/fce7148e-3071-42bd-8f7a-4b41ae1cdab6" />
+

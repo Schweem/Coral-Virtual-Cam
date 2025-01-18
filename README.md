@@ -35,6 +35,9 @@ If not mentioned here you SHOULD be good to `pip install -r requirements.txt` in
 
 ## Usage
 Above all else this is just an exploration right now. With requirements installed and your coral setup, run any of the scripts with your coral plugged in to use them. 
+
+All scripts other than virtual cam live in the `preflightchecks` directory inside `/src`, this is to keep things clean. 
+
 - `Coral Test` -- Used to ensure that coral is setup and the models can be loaded
 - `Camera Test` -- Simple script for ensuring python can use your system camera
 - `Green Screen` -- Test script, uses Deeplabv3 to create a green screen effect on camera.

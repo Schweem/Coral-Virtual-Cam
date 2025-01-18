@@ -4,9 +4,9 @@ from tflite_runtime.interpreter import Interpreter, load_delegate
 from pycoral.adapters import common, segment
 
 # Paths to the model and background image
-MODEL_PATH = '../models/deeplabv3_mnv2_pascal_quant_edgetpu.tflite'
-BACKGROUND_IMAGE_PATH = '../models/background.jpg'
-EDGETPU_SHARED_LIB = 'tpulib/libedgetpu.1.dylib'  # Path to the Edge TPU library
+MODEL_PATH = '../../models/deeplabv3_mnv2_pascal_quant_edgetpu.tflite'
+BACKGROUND_IMAGE_PATH = '../../models/background.jpg'
+EDGETPU_SHARED_LIB = '../tpulib/libedgetpu.1.dylib'  # Path to the Edge TPU library
 
 # Load the Edge TPU model
 try:
@@ -19,6 +19,7 @@ try:
     print(f"Model loaded successfully with input size: {input_size}")
 except Exception as e:
     print(f"Error loading model or delegate: {e}")
+    
     exit()
 
 # Load and resize the background image to match the input size
@@ -26,12 +27,14 @@ background = cv2.imread(BACKGROUND_IMAGE_PATH)
 if background is None:
     print("Error: Could not load background image.")
     exit()
+    
 background = cv2.resize(background, input_size)
 
 # Open the webcam
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("Error: Could not open webcam.")
+    
     exit()
 
 print("Press 'q' to exit.")

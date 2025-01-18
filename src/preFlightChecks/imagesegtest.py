@@ -4,8 +4,8 @@ from tflite_runtime.interpreter import Interpreter, load_delegate
 from pycoral.adapters import common, segment
 
 # Paths to the model and labels
-MODEL_PATH = '../models/deeplabv3_mnv2_pascal_quant_edgetpu.tflite'
-EDGETPU_SHARED_LIB = 'tpulib/libedgetpu.1.dylib'  # Path to the Edge TPU library
+MODEL_PATH = '../../models/deeplabv3_mnv2_pascal_quant_edgetpu.tflite'
+EDGETPU_SHARED_LIB = '../tpulib/libedgetpu.1.dylib'  # Path to the Edge TPU library
 LABELS = [
     'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
     'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
@@ -21,8 +21,10 @@ try:
     interpreter.allocate_tensors()
     input_size = common.input_size(interpreter)
     print(f"Model loaded successfully with input size: {input_size}")
+    
 except Exception as e:
     print(f"Error loading model or delegate: {e}")
+    
     exit()
 
 # Function to create a colormap for visualizing segmentation results
@@ -33,17 +35,20 @@ def create_pascal_label_colormap():
         for channel in range(3):
             colormap[:, channel] |= ((indices >> channel) & 1) << shift
         indices >>= 3
+        
     return colormap
 
 # Function to apply the colormap to the segmentation mask
 def label_to_color_image(label):
     colormap = create_pascal_label_colormap()
+    
     return colormap[label]
 
 # Open the webcam
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("Error: Could not open webcam.")
+    
     exit()
 
 print("Press 'q' to exit.")

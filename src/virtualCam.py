@@ -19,20 +19,24 @@ try:
     interpreter.allocate_tensors()
     input_size = common.input_size(interpreter)
     print(f"Model loaded successfully with input size: {input_size}")
+    
 except Exception as e:
     print(f"Error loading model or delegate: {e}")
+    
     exit()
 
 # Load the background image
 background = cv2.imread(BACKGROUND_IMAGE_PATH)
 if background is None:
     print("Error: Could not load background image.")
+    
     exit()
 
 # Open the webcam
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("Error: Could not open webcam.")
+    
     exit()
 
 # Get webcam dimensions

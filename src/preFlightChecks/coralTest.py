@@ -19,10 +19,10 @@ def test_coral():
     # Having issues with libary path, directly linking for now (temporary)
     # Change to yours or remove if i am just not smart enough to figure it out
     
-    edgetpu_library_path = "tpulib/libedgetpu.1.dylib"
+    edgetpu_library_path = "../tpulib/libedgetpu.1.dylib"
 
     # Load the model
-    model_path = "../models/deeplabv3_mnv2_pascal_quant_edgetpu.tflite"
+    model_path = "../../models/deeplabv3_mnv2_pascal_quant_edgetpu.tflite"
     
     try:
         # Create interpreter with Edge TPU delegate
@@ -36,6 +36,7 @@ def test_coral():
         
     except Exception as e:
         print(f"Error loading model: {e}")
+        
         return
 
     # Display input size of the model
